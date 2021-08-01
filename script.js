@@ -38,13 +38,15 @@ function duplicateCards() {
 }
 
 function startGame() {     
-    totalCards = Number(prompt("Com quantas cartas quer jogar?"));    
+    totalCards = Number(prompt("Com quantas cartas quer jogar?\nDigite um número par de 4 a 14."));    
     while ((totalCards % 2 !== 0) || (totalCards < 4) || (totalCards > 14)) {
-        totalCards = Number(prompt("Com quantas cartas quer jogar?"));
+        totalCards = Number(prompt("Com quantas cartas quer jogar?\nDigite um número par de 4 a 14."));
     }
     
     let container = document.querySelector(".container");
     let doubleCards = duplicateCards();
+
+    container.innerHTML = "";
 
     for(let i = 0; i < totalCards; i++) {
         container.innerHTML += `
@@ -125,7 +127,21 @@ function cardRotation (element) {
 function finishGame() {
      if (hits === (totalCards / 2)) {
         clearInterval(idInterval)
-        alert(`Você ganhou em ${clickCount - 1} jogadas com o tempo de ${chronometer} segundos!`)         
-     }
+        alert(`Você ganhou em ${clickCount - 1} jogadas com o tempo de ${chronometer} segundos!`);
+        restartGame()
+        
+     }     
  }
 
+ function restartGame() {
+    let answer = prompt("Deseja reiniciar a partida?\nDigite s (sim) ou n (não).").toUpperCase()
+    console.log(answer)
+    if ((answer == "SIM") || (answer == "S") ) {
+        clickCount = 1;
+        hits = 0;
+        chronometer = 0;   
+        backFaces.sort(comparator);         
+        startGame();
+        time();
+    }        
+ }

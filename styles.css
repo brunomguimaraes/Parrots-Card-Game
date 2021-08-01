@@ -23,7 +23,7 @@ ion-icon {
 }
 
 .chronometer-box {
-    width: 140px;
+    width: 115px;
     height: 35px;
     background-color: #A7E9AF;
     border-radius: 5px;
@@ -33,7 +33,8 @@ ion-icon {
     align-items: center;
     position: fixed;
     top: 3px;
-    right: 3px; 
+    right: 3px;
+    z-index: 1; 
 }
 
 .chronometer {    
@@ -127,7 +128,6 @@ h1 {
 .disabled {
     pointer-events: none;
 }
-
 
 @media (max-width: 600px) {  
     .container {
