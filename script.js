@@ -18,7 +18,8 @@ let frontFaceSelection1;
 let backFaceSelection2;
 let frontFaceSelection2;
 let hits = 0;
-
+let chronometer = 0;
+let idInterval;
 backFaces.sort(comparator);
 
 function comparator() {
@@ -41,7 +42,7 @@ function startGame() {
     while ((totalCards % 2 !== 0) || (totalCards < 4) || (totalCards > 14)) {
         totalCards = Number(prompt("Com quantas cartas quer jogar?"));
     }
-
+    
     let container = document.querySelector(".container");
     let doubleCards = duplicateCards();
 
@@ -58,8 +59,21 @@ function startGame() {
         `;
     }        
     duplicateCards();
+  
 }
 startGame()
+
+function time() {
+    idInterval = setInterval(addSeconds, 1000);
+}
+    
+function addSeconds() {
+    chronometer++;        
+    const divChronometer = document.querySelector(".chronometer");
+    divChronometer.innerHTML = chronometer;
+}
+time()
+
 
 function cardRotation (element) {    
     if (clickCount % 2 !== 0) {       
@@ -110,7 +124,8 @@ function cardRotation (element) {
 
 function finishGame() {
      if (hits === (totalCards / 2)) {
-         alert(`Você ganhou em ${clickCount - 1} jogadas!`)
+        clearInterval(idInterval)
+        alert(`Você ganhou em ${clickCount - 1} jogadas com o tempo de ${chronometer} segundos!`)         
      }
  }
 

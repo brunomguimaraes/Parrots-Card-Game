@@ -8,8 +8,42 @@ body {
     background-color: #EEF9BF;   
 }
 
-.title {
-    width: 100vw;  
+.top {
+    margin-top: 0px;
+    width: 100vw; 
+    display: flex;
+    justify-content: center;
+ 
+}
+
+ion-icon {
+    font-size: 35px;
+    color: #75B79E;
+
+}
+
+.chronometer-box {
+    width: 140px;
+    height: 35px;
+    background-color: #A7E9AF;
+    border-radius: 5px;
+    border: 2px solid #99CEA8;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: fixed;
+    top: 3px;
+    right: 3px; 
+}
+
+.chronometer {    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #75B79E;
+    font-size: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
 }
 
 h1 {
@@ -18,7 +52,7 @@ h1 {
     font-weight: bold;
     color: #75B79E;
     padding-top: 40px;
-    text-align: center;  
+    text-align: center;
 }
 
 .container {  
@@ -94,15 +128,15 @@ h1 {
     pointer-events: none;
 }
 
+
 @media (max-width: 600px) {  
     .container {
         flex-direction: column;
         align-items: center;
     }
-}
-
-@media (max-width: 535px) {
     h1 {
         font-size: 36px;
+        width: 300px;
     }
 }
+
