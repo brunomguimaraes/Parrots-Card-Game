@@ -17,10 +17,11 @@ let backFaceSelection1;
 let frontFaceSelection1;
 let backFaceSelection2;
 let frontFaceSelection2;
+let hits = 0;
 
 backFaces.sort(comparator);
 
-function comparator(){
+function comparator() {
     return 0.5 - Math.random();
 }
 
@@ -82,13 +83,17 @@ function cardRotation (element) {
     } 
 
     if (clickCount % 2 === 0) {
-        if (pairsCards[0]  === pairsCards[1]){
+        if (pairsCards[0]  === pairsCards[1]) {
             checked1.classList.remove("check1");  
             checked2.classList.remove("check2");
             checked2.classList.add("disabled");
-            checked1.classList.add("disabled");                           
+            checked1.classList.add("disabled");
+            hits ++;           
+            setTimeout(function() {
+                finishGame();
+            }, 1000);               
         } else {
-            setTimeout(function(){
+            setTimeout(function() {
                 backFaceSelection1.classList.remove("back-face-rotation");
                 frontFaceSelection1.classList.remove("front-face-rotation");
                 backFaceSelection2.classList.remove("back-face-rotation");
@@ -100,7 +105,12 @@ function cardRotation (element) {
             }, 1000);
         }
     }
-        clickCount ++;        
+        clickCount ++;      
  }
 
+function finishGame() {
+     if (hits === (totalCards / 2)) {
+         alert(`Você ganhou em ${clickCount - 1} jogadas!`)
+     }
+ }
 
