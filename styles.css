@@ -7,6 +7,7 @@
 body {
     background-color: #EEF9BF;   
 }
+
 .title {
     width: 100vw;  
 }
@@ -17,12 +18,11 @@ h1 {
     font-weight: bold;
     color: #75B79E;
     padding-top: 40px;
-    text-align: center;
-  
+    text-align: center;  
 }
 
-.container {
-    width: 80.77%;
+.container {  
+    width: 70vw;
     height: auto;
     margin: 47px auto auto auto;
     justify-content: center;
@@ -30,6 +30,7 @@ h1 {
     padding-left: 34px;
     flex-wrap: wrap;     
 }
+
 .card {
     width: 117px;
     height: 146px;
@@ -40,7 +41,8 @@ h1 {
     margin-right: 34px;
     margin-bottom: 34px;
 }
-.face {
+
+.front-face {
     width: 100%;
     height: 100%;    
     border-radius: 5px;
@@ -49,17 +51,28 @@ h1 {
     justify-content: center;
     position: absolute;
     backface-visibility: hidden;
-    transition: all .5s;
+    transition: all 1s;
     transform-style: preserve-3d;
 }
 
-.back-face {
+.back-face {   
+    width: 100%;
+    height: 100%;    
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    backface-visibility: hidden;
+    transition: all 1s;
+    transform-style: preserve-3d;
     transform: rotateY(180deg);
 }
 
 .back-face-rotation {
     transform: rotateY(0deg);
 }
+
 .front-face-rotation {
     transform: rotateY(-180deg);
 }
@@ -69,8 +82,8 @@ h1 {
       height: 100px;
 }
 
-
-@media (max-width: 600px) {  
+@media (max-width: 600px) {
+  
     .container {
         flex-direction: column;
         align-items: center;
