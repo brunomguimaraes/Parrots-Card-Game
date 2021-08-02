@@ -1,13 +1,13 @@
 let totalCards;
- let backFaces = [
-     "src='assets/bobrossparrot.gif'", 
-     "src='assets/explodyparrot.gif'", 
-     "src='assets/fiestaparrot.gif'",
-     "src='assets/metalparrot.gif' ",
-     "src='assets/revertitparrot.gif'",
-     "src='assets/unicornparrot.gif'",
-     "src='assets/tripletsparrot.gif'"
- ] 
+let backFaces = [
+    "src='assets/bobrossparrot.gif'", 
+    "src='assets/explodyparrot.gif'", 
+    "src='assets/fiestaparrot.gif'",
+    "src='assets/metalparrot.gif' ",
+    "src='assets/revertitparrot.gif'",
+    "src='assets/unicornparrot.gif'",
+    "src='assets/tripletsparrot.gif'"
+] 
 
 let pairsCards = [0, 0];
 let checked1;
@@ -20,10 +20,26 @@ let frontFaceSelection2;
 let hits = 0;
 let chronometer = 0;
 let idInterval;
+let userName;
+let divRanking;
+let table;
+let scorepoints = 0;
+let ranking = [];
+
 backFaces.sort(comparator);
 
 function comparator() {
     return 0.5 - Math.random();
+}
+
+function comparatorScore(a, b) {    
+    if(a.score > b.score){
+        return -1;
+    }
+    else if(a.score < b.score){
+        return 1;
+    }
+    return 0;
 }
 
 function duplicateCards() {
@@ -32,12 +48,12 @@ function duplicateCards() {
         doubleCards.push(backFaces[i]);
         doubleCards.push(backFaces[i]);
     }
-
     doubleCards.sort(comparator);
     return doubleCards;
 }
 
-function startGame() {     
+function startGame() {   
+    userName = prompt("Qual nome você quer que apareça no ranking?");
     totalCards = Number(prompt("Com quantas cartas quer jogar?\nDigite um número par de 4 a 14."));    
     while ((totalCards % 2 !== 0) || (totalCards < 4) || (totalCards > 14)) {
         totalCards = Number(prompt("Com quantas cartas quer jogar?\nDigite um número par de 4 a 14."));
@@ -60,8 +76,11 @@ function startGame() {
             </div>
         `;
     }        
-    duplicateCards();
-  
+    duplicateCards();  
+
+    setInterval(() => {
+        addScore();
+    }, 1000);
 }
 startGame()
 
@@ -74,8 +93,7 @@ function addSeconds() {
     const divChronometer = document.querySelector(".chronometer");
     divChronometer.innerHTML = chronometer;
 }
-time()
-
+time();
 
 function cardRotation (element) {    
     if (clickCount % 2 !== 0) {       
@@ -104,7 +122,7 @@ function cardRotation (element) {
             checked2.classList.remove("check2");
             checked2.classList.add("disabled");
             checked1.classList.add("disabled");
-            hits ++;           
+            hits++;           
             setTimeout(function() {
                 finishGame();
             }, 1000);               
@@ -124,22 +142,111 @@ function cardRotation (element) {
         clickCount ++;      
  }
 
+
+function addScore() {
+    if (totalCards === 4) {        
+        if (chronometer <= 6) {
+            scorepoints = (hits * 10) + 10;
+        } else {
+            scorepoints = (hits * 10) + (10 - (chronometer-6));
+        }
+    } 
+
+    if (totalCards === 6) {
+        if (chronometer <= 9) {
+            scorepoints = (hits * 12) + 15;
+        } else {
+            scorepoints = (hits * 12) + (15 - (chronometer-9));
+        }
+    }
+   
+    if (totalCards === 8) {
+        if (chronometer <= 12) {
+            scorepoints = (hits * 14) + 20;
+        } else {
+            scorepoints = (hits * 14) + (20 - (chronometer-12));
+        }
+    } 
+    
+    if (totalCards === 10) {
+        if (chronometer <= 15) {
+        scorepoints = (hits * 16) + 30;
+        } else {
+            scorepoints = (hits * 16) + (30 - (chronometer-15));
+        }
+    }
+    
+    if (totalCards === 12) {
+        if (chronometer <= 18) {
+            scorepoints = (hits * 18) + 40;
+        } else {
+            scorepoints = (hits * 18) + (40 - (chronometer-18));
+        }
+    } 
+
+    if (totalCards === 14) {
+        if (chronometer <= 21) {
+            scorepoints = (hits * 20) + 50;
+        } else {
+            scorepoints = (hits * 20) + (50 - (chronometer-21));
+        }
+    } 
+
+    const divScorePoints = document.querySelector(".score-points");
+    divScorePoints.innerHTML = scorepoints;
+    return scorepoints;
+}
+
 function finishGame() {
      if (hits === (totalCards / 2)) {
         clearInterval(idInterval)
-        alert(`Você ganhou em ${clickCount - 1} jogadas com o tempo de ${chronometer} segundos!`);
-        restartGame()
-        
+        alert(`Você ganhou em ${clickCount - 1} jogadas com o tempo de ${chronometer} segundos!\nPontuação total: ${scorepoints} diamantes.`);
+        let user = {
+            name: userName, 
+            cards: totalCards,
+            time: chronometer,
+            score: scorepoints
+        }        
+
+        ranking.push(user);
+        rank();
+        setTimeout(function() {
+            restartGame();;
+        }, 4000);                 
      }     
+ }
+ 
+ function rank() {
+    ranking.sort(comparatorScore);
+    divRanking = document.querySelector(".ranking");
+    divRanking.classList.remove("none");
+    table = document.querySelector("table");
+    table.innerHTML = `<tr>
+                        <th></th>
+                        <th class="titulos">Name</th>
+                        <th class="titulos">Cards</th>
+                        <th class="titulos">Time</th>
+                        <th class="titulos">Score</th>
+                      </tr>`;
+    for(let i = 0; i < ranking.length; i++) {
+        table.innerHTML+=`<tr>
+                        <td class="position">${i + 1}</td>
+                        <td>${ranking[i].name}</td>
+                        <td>${ranking[i].cards}</td>
+                        <td>${ranking[i].time}</td>
+                        <td>${ranking[i].score}</td>
+                      </tr>`;
+    }
+    
  }
 
  function restartGame() {
     let answer = prompt("Deseja reiniciar a partida?\nDigite s (sim) ou n (não).").toUpperCase()
-    console.log(answer)
     if ((answer == "SIM") || (answer == "S") ) {
         clickCount = 1;
         hits = 0;
-        chronometer = 0;   
+        chronometer = 0;  
+        a.classList.add("none"); 
         backFaces.sort(comparator);         
         startGame();
         time();

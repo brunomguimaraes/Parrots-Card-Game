@@ -5,10 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="assets/front.png">
     <title>Parrots Card Game</title>
 </head>
 <body>
-  <div class="top">   
+  <div class="top"> 
+    <div class="score-box">
+      <div class="diamond">
+        <ion-icon name="diamond-outline"></ion-icon> 
+      </div>  
+      <div class="score-points">        
+        0    
+      </div> 
+    </div>    
     <h1>PARROT CARD GAME</h1>
     <div class="chronometer-box">
       <div class="relogio">
@@ -19,8 +28,10 @@
       </div> 
     </div>   
   </div> 
-  <div class="container">
-  </div>   
+  <div class="container"></div>
+  <div class="ranking none">
+    <table></table>
+  </div> 
   <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
   <script src="script.js"></script>   
 </body>
