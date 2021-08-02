@@ -8,7 +8,6 @@ let backFaces = [
     "src='assets/unicornparrot.gif'",
     "src='assets/tripletsparrot.gif'"
 ] 
-
 let pairsCards = [0, 0];
 let checked1;
 let checked2;
@@ -144,6 +143,7 @@ function cardRotation (element) {
 
 
 function addScore() {
+
     if (totalCards === 4) {        
         if (chronometer <= 6) {
             scorepoints = (hits * 10) + 10;
@@ -151,7 +151,6 @@ function addScore() {
             scorepoints = (hits * 10) + (10 - (chronometer-6));
         }
     } 
-
     if (totalCards === 6) {
         if (chronometer <= 9) {
             scorepoints = (hits * 12) + 15;
@@ -183,7 +182,6 @@ function addScore() {
             scorepoints = (hits * 18) + (40 - (chronometer-18));
         }
     } 
-
     if (totalCards === 14) {
         if (chronometer <= 21) {
             scorepoints = (hits * 20) + 50;
@@ -236,17 +234,16 @@ function finishGame() {
                         <td>${ranking[i].time}</td>
                         <td>${ranking[i].score}</td>
                       </tr>`;
-    }
-    
+    }    
  }
 
  function restartGame() {
     let answer = prompt("Deseja reiniciar a partida?\nDigite s (sim) ou n (não).").toUpperCase()
-    if ((answer == "SIM") || (answer == "S") ) {
+    if ((answer === "SIM") || (answer === "S") ) {
         clickCount = 1;
         hits = 0;
         chronometer = 0;  
-        a.classList.add("none"); 
+        divRanking.classList.add("none"); 
         backFaces.sort(comparator);         
         startGame();
         time();
